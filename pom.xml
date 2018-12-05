@@ -10,6 +10,8 @@
 
 	<name>Mutant Finder</name>
 	<description>Demo Proyect for Mercado Libre</description>
+	
+	<springfox-swagger.version>2.7.0</springfox-swagger.version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -59,6 +61,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
