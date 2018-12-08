@@ -66,9 +66,11 @@ public class MutantFinderService implements IMutantFinderService {
 			stat.setCount_human_dna(humCounter);
 			stat.setCount_mutant_dna(mutCounter);
 			stat.setRatio(rat);
+			logger.info("@..updating stat");
 			repositoryStats.save(stat);
 		}
 		else {
+			logger.info("@..new stat");
 			stat = new Stats(mutCounter, humCounter, rat);
 			repositoryStats.save(stat);
 		}
