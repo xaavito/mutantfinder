@@ -19,8 +19,32 @@ public class Stats {
 	private String ratio;
 
 	public Stats(int mut, int hum, String rat) {
-		this.count_human_dna = hum;
-		this.count_mutant_dna = mut;
-		this.ratio = rat;
+		this.setCount_human_dna(hum);
+		this.setCount_mutant_dna(mut);
+		this.setRatio(rat);
+	}
+
+	public int getCount_mutant_dna() {
+		return count_mutant_dna;
+	}
+
+	public void setCount_mutant_dna(int count_mutant_dna) {
+		this.count_mutant_dna = count_mutant_dna;
+	}
+
+	public int getCount_human_dna() {
+		return count_human_dna;
+	}
+
+	public void setCount_human_dna(int count_human_dna) {
+		this.count_human_dna = count_human_dna;
+	}
+
+	public String getRatio() {
+		return ratio;
+	}
+
+	public void setRatio(String ratio) {
+		this.ratio = ratio;
 	}
 }
