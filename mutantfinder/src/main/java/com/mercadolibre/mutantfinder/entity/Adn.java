@@ -16,8 +16,23 @@ public class Adn {
 	private int isMutant;
 
 	public Adn(String[] dna) {
-		this.dna = dna;
-		this.isMutant = 0;
+		this.setDna(dna);
+		this.setIsMutant(0);
 	}
 
+	public int getIsMutant() {
+		return isMutant;
+	}
+
+	public void setIsMutant(int isMutant) {
+		this.isMutant = isMutant;
+	}
+
+	public String[] getDna() {
+		return dna;
+	}
+
+	public void setDna(String[] dna) {
+		this.dna = dna;
+	}
 }
