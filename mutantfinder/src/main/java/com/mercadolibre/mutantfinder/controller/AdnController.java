@@ -37,8 +37,6 @@ public class AdnController {
 		this.repository = repository;
 	}
 
-	// Aggregate root
-
 	@GetMapping("/all")
 	List<Adn> all() {
 		logger.info("Getting all calls to service");

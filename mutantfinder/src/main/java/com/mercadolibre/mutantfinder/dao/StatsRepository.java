@@ -2,7 +2,6 @@ package com.mercadolibre.mutantfinder.dao;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.mercadolibre.mutantfinder.entity.Adn;
 import com.mercadolibre.mutantfinder.entity.Stats;
 
 /**
