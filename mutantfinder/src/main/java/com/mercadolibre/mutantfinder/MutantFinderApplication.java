@@ -9,11 +9,16 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import com.mercadolibre.mutantfinder.dao.AdnRepository;
 
+/**
+ * Punto de entrada y ejecucion de la aplicacion que chequea mutantes
+ * 
+ * @author Javier Gonzalez
+ *
+ */
 @SpringBootApplication
-@ComponentScan("com.mercadolibre.mutantfinder") //to scan packages mentioned
+@ComponentScan("com.mercadolibre.mutantfinder") // to scan packages mentioned
 @EnableMongoRepositories(basePackages = "com.mercadolibre.mutantfinder")
 public class MutantFinderApplication {
-	//(exclude = { MongoAutoConfiguration.class })
 	public static void main(String[] args) {
 		SpringApplication.run(MutantFinderApplication.class, args);
 	}

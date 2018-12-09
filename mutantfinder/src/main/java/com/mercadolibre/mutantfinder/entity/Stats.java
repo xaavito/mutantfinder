@@ -3,12 +3,16 @@ package com.mercadolibre.mutantfinder.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.google.common.collect.ConcurrentHashMultiset;
-
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase para la representacion de datos de la BD de las estadisticas, las
+ * creamos una vez y las vamos actualizando
+ * 
+ * @author Javier Gonzalez
+ *
+ */
 @Document(collection = "stats")
 @Data
 @NoArgsConstructor

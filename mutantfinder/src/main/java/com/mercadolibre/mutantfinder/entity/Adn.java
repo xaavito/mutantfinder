@@ -7,11 +7,17 @@ import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 
+/**
+ * Representacion de BD y entidad del adn que se chequea e inserta en la BD
+ * 
+ * @author Javier Gonzalez
+ *
+ */
 @Document(collection = "adn")
 @Data
 @NoArgsConstructor
 public class Adn {
-	private @Id  String id;
+	private @Id String id;
 	private String[] dna = new String[6];
 	private int isMutant;
 

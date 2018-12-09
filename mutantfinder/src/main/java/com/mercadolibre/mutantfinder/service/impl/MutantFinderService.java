@@ -12,6 +12,12 @@ import com.mercadolibre.mutantfinder.dao.StatsRepository;
 import com.mercadolibre.mutantfinder.entity.Stats;
 import com.mercadolibre.mutantfinder.excepction.IMutantFinderService;
 
+/**
+ * Servicio general que tiene todo el manejo de chequeo de ADN mutante o humano
+ * 
+ * @author Javier Gonzalez
+ *
+ */
 @Service
 public class MutantFinderService implements IMutantFinderService {
 
@@ -26,6 +32,12 @@ public class MutantFinderService implements IMutantFinderService {
 
 	private String[] split;
 
+	private boolean allEqual = false;
+
+	/**
+	 * Metodo requerido por las especificaciones, recibe adn y devueve si es
+	 * mutante.
+	 */
 	public boolean isMutant(String[] dna) {
 		logger.info("@..isMutant");
 		toSizeUpMatrix(dna);
@@ -35,22 +47,27 @@ public class MutantFinderService implements IMutantFinderService {
 		return isMutant;
 	}
 
+	/**
+	 * Actualizador de estadisticas una vez obtenido el resultado
+	 * 
+	 * @param isMutant
+	 */
 	private void updateStats(boolean isMutant) {
 		logger.info("@..updateStats");
 		int mutCounter = 0;
 		int humCounter = 0;
 		String rat = "";
-		
+
 		Stats stat = null;
-		
+
 		List<Stats> stats = repositoryStats.findAll();
-		
+
 		if (stats != null && !stats.isEmpty()) {
 			stat = stats.get(0);
 			humCounter = stat.getCount_human_dna();
 			mutCounter = stat.getCount_mutant_dna();
 		}
-		
+
 		if (isMutant) {
 			mutCounter++;
 		} else {
@@ -58,26 +75,32 @@ public class MutantFinderService implements IMutantFinderService {
 		}
 		if (mutCounter != 0) {
 			rat = (new BigDecimal(humCounter / mutCounter)).toString();
-		}else {
+		} else {
 			rat = Integer.toString(0);
 		}
-		
+
 		if (stats != null && !stats.isEmpty()) {
 			stat.setCount_human_dna(humCounter);
 			stat.setCount_mutant_dna(mutCounter);
 			stat.setRatio(rat);
 			logger.info("@..updating stat");
 			repositoryStats.save(stat);
-		}
-		else {
+		} else {
 			logger.info("@..new stat");
 			stat = new Stats(mutCounter, humCounter, rat);
 			repositoryStats.save(stat);
 		}
 	}
 
+	/**
+	 * generador de matriz en base a la obtencion de filas y columnas del adn
+	 * enviado
+	 * 
+	 * @param dna
+	 */
 	private void toSizeUpMatrix(String[] dna) {
 		logger.info("@..toSizeUpMatrix");
+		filas = 0;
 		for (String string : dna) {
 			if (columnas == 0 || string.length() > columnas) {
 				columnas = string.length();
@@ -89,6 +112,11 @@ public class MutantFinderService implements IMutantFinderService {
 		matriz = new String[filas][columnas];
 	}
 
+	/**
+	 * Chequea la matriz para saber si es mutante o no
+	 * 
+	 * @return
+	 */
 	private boolean matrixChecker() {
 		logger.info("@..matrixChecker");
 
@@ -104,6 +132,13 @@ public class MutantFinderService implements IMutantFinderService {
 		return false;
 	}
 
+	/**
+	 * Chequeador de todas las posiciones posibles para el chequeo de la matriz
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkPosition(int i, int j) {
 		logger.info("@..checkPosition");
 		return checkDiagUpLeft(i, j) || checkUp(i, j) || checkDiagUpRight(i, j) || checkLeft(i, j)
@@ -111,75 +146,185 @@ public class MutantFinderService implements IMutantFinderService {
 				|| checkDiagDownRight(i, j);
 	}
 
+	/**
+	 * Chequeo especifico de diagonal derecha abajo
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkDiagDownRight(int i, int j) {
-		if (i + 3 > filas || j + 3 > columnas) {
+		logger.info("@..checkDiagDownRight i " + i + " j " + j);
+		if (i + 3 >= filas || j + 3 >= columnas) {
 			return false;
 		} else {
-			return allEqual(matriz[i][j], matriz[i + 1][j + 1], matriz[i + 2][j + 2], matriz[i + 3][j + 3]);
+			allEqual = allEqual(matriz[i][j], matriz[i + 1][j + 1], matriz[i + 2][j + 2], matriz[i + 3][j + 3]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Chequeo especifico hacia abajo
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkDown(int i, int j) {
-		if (i + 3 > filas) {
+		logger.info("@..checkDown i " + i + " j " + j);
+		if (i + 3 >= filas) {
 			return false;
 		} else {
-			return allEqual(matriz[i][j], matriz[i + 1][j], matriz[i + 2][j], matriz[i + 3][j]);
+			allEqual = allEqual(matriz[i][j], matriz[i + 1][j], matriz[i + 2][j], matriz[i + 3][j]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Chequeo diagonal izquierda abajo
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkDiagDownLeft(int i, int j) {
-		if (i + 3 > filas || j - 3 < 0) {
+		logger.info("@..checkDiagDownLeft i " + i + " j " + j);
+		if (i + 3 >= filas || j - 3 < 0) {
 			return false;
 		} else {
-			return allEqual(matriz[i][j], matriz[i + 1][j - 1], matriz[i + 2][j - 2], matriz[i + 3][j - 3]);
+			allEqual = allEqual(matriz[i][j], matriz[i + 1][j - 1], matriz[i + 2][j - 2], matriz[i + 3][j - 3]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Chequeo derecha
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkRight(int i, int j) {
-		if (j + 3 > columnas) {
+		logger.info("@..checkRight i " + i + " j " + j);
+		if (j + 3 >= columnas) {
 			return false;
 		} else {
-			return allEqual(matriz[i][j], matriz[i][j + 1], matriz[i][j + 2], matriz[i][j + 3]);
+			allEqual = allEqual(matriz[i][j], matriz[i][j + 1], matriz[i][j + 2], matriz[i][j + 3]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Chequeo izquierda
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkLeft(int i, int j) {
+		logger.info("@..checkLeft i " + i + " j " + j);
 		if (j - 3 < 0) {
 			return false;
 		} else {
-			return allEqual(matriz[i][j - 3], matriz[i][j - 2], matriz[i][j - 1], matriz[i][j]);
+			allEqual = allEqual(matriz[i][j - 3], matriz[i][j - 2], matriz[i][j - 1], matriz[i][j]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Chequeo diagonal arriba derecha
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkDiagUpRight(int i, int j) {
-		if (i - 3 < 0 || j + 3 > columnas) {
+		logger.info("@..checkDiagUpRight i " + i + " j " + j);
+		if (i - 3 < 0 || j + 3 >= columnas) {
 			return false;
 		} else {
-			return allEqual(matriz[i - 3][j + 3], matriz[i - 2][j + 2], matriz[i - 1][j + 1], matriz[i][j]);
+			allEqual = allEqual(matriz[i - 3][j + 3], matriz[i - 2][j + 2], matriz[i - 1][j + 1], matriz[i][j]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Chequeo arriba
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkUp(int i, int j) {
+		logger.info("@..checkUp i " + i + " j " + j);
 		if (i - 3 < 0) {
 			return false;
 		} else {
-			return allEqual(matriz[i - 3][j], matriz[i - 2][j], matriz[i - 1][j], matriz[i][j]);
+			allEqual = allEqual(matriz[i - 3][j], matriz[i - 2][j], matriz[i - 1][j], matriz[i][j]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Chequeo diagonal izquierda arriba
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 	private boolean checkDiagUpLeft(int i, int j) {
+		logger.info("@..checkDiagUpLeft i " + i + " j " + j);
 		if (i - 3 < 0 || j - 3 < 0) {
 			return false;
 		} else {
-			return allEqual(matriz[i - 3][j - 3], matriz[i - 2][j - 2], matriz[i - 1][j - 1], matriz[i][j]);
+			allEqual = allEqual(matriz[i - 3][j - 3], matriz[i - 2][j - 2], matriz[i - 1][j - 1], matriz[i][j]);
+			if (allEqual) {
+				logger.info("@..FOUND MATCH");
+			}
+			return allEqual;
 		}
 	}
 
+	/**
+	 * Comparador de las 4 letras. TODAS deben ser iguales
+	 * 
+	 * @param string
+	 * @param string2
+	 * @param string3
+	 * @param string4
+	 * @return
+	 */
 	private boolean allEqual(String string, String string2, String string3, String string4) {
 		return string.equalsIgnoreCase(string2) && string2.equalsIgnoreCase(string3)
 				&& string3.equalsIgnoreCase(string4);
 	}
 
+	/**
+	 * Metodo de conversion de adn a matriz de comparaciones
+	 * 
+	 * @param dna
+	 */
 	public void toMatrix(String[] dna) {
 		logger.info("@..toMatrix");
 		for (int i = 0; i < filas; i++) {

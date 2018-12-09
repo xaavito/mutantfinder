@@ -16,6 +16,13 @@ import com.mercadolibre.mutantfinder.dao.AdnRepository;
 import com.mercadolibre.mutantfinder.entity.Adn;
 import com.mercadolibre.mutantfinder.excepction.IMutantFinderService;
 
+/**
+ * 1 de los 2 controllers de entradas. Solo para el chequeo de si es mutante o
+ * no.
+ * 
+ * @author Javier Gonzalez
+ *
+ */
 @RestController
 public class AdnController {
 
@@ -25,7 +32,7 @@ public class AdnController {
 	private IMutantFinderService service;
 
 	private final AdnRepository repository;
-	
+
 	AdnController(AdnRepository repository) {
 		this.repository = repository;
 	}
@@ -38,6 +45,12 @@ public class AdnController {
 		return repository.findAll();
 	}
 
+	/**
+	 * Metodo de entrada para el chequeo de un ADN es mutante o humano
+	 * 
+	 * @param newAdn
+	 * @return
+	 */
 	@PostMapping("/mutant")
 	// @ResponseStatus(HttpStatus.OK)
 	ResponseEntity mutant(@RequestBody Adn newAdn) {
