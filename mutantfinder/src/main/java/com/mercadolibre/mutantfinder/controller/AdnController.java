@@ -38,6 +38,10 @@ public class AdnController {
 		this.repository = repository;
 	}
 
+	/**
+	 * Metodo solamente de prueba, hay que removerlo
+	 * @return
+	 */
 	@GetMapping("/all")
 	List<Adn> all() {
 		logger.info("Getting all calls to service");
@@ -51,7 +55,6 @@ public class AdnController {
 	 * @return
 	 */
 	@PostMapping("/mutant")
-	// @ResponseStatus(HttpStatus.OK)
 	ResponseEntity mutant(@RequestBody Adn newAdn) {
 		logger.info("Checking for new muttants");
 		try {
