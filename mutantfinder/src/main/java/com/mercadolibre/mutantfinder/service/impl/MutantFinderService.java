@@ -43,12 +43,16 @@ public class MutantFinderService implements IMutantFinderService {
 	 * mutante.
 	 */
 	public boolean isMutant(String[] dna) {
-		logger.info("@..isMutant");
-		toSizeUpMatrix(dna);
-		toMatrix(dna);
-		boolean isMutant = matrixChecker();
-		updateStats(isMutant);
-		return isMutant;
+		try {
+			logger.info("@..isMutant");
+			toSizeUpMatrix(dna);
+			toMatrix(dna);
+			boolean isMutant = matrixChecker();
+			updateStats(isMutant);
+			return isMutant;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new NotValidDNASequenceException();
+		}
 	}
 
 	/**
