@@ -4,7 +4,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * Clase para la representacion de datos de la BD de las estadisticas, las
@@ -15,7 +14,6 @@ import lombok.NoArgsConstructor;
  */
 @Document(collection = "stats")
 @Data
-@NoArgsConstructor
 public class Stats {
 	private @Id String id;
 	private int count_mutant_dna;
@@ -26,6 +24,9 @@ public class Stats {
 		this.count_mutant_dna = count_mutant_dna;
 		this.count_human_dna = count_human_dna;
 		this.ratio = ratio;
+	}
+
+	public Stats() {
 	}
 
 	public int getCount_mutant_dna() {
