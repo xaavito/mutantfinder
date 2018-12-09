@@ -1,6 +1,7 @@
 package com.mercadolibre.mutantfinder.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.mercadolibre.mutantfinder.dao.StatsRepository;
 import com.mercadolibre.mutantfinder.entity.Stats;
-import com.mercadolibre.mutantfinder.excepction.IMutantFinderService;
+import com.mercadolibre.mutantfinder.excepction.NotValidDNASequenceException;
+import com.mercadolibre.mutantfinder.service.IMutantFinderService;
 
 /**
  * Servicio general que tiene todo el manejo de chequeo de ADN mutante o humano
@@ -33,6 +35,8 @@ public class MutantFinderService implements IMutantFinderService {
 	private String[] split;
 
 	private boolean allEqual = false;
+
+	private String letra = "";
 
 	/**
 	 * Metodo requerido por las especificaciones, recibe adn y devueve si es
@@ -73,10 +77,11 @@ public class MutantFinderService implements IMutantFinderService {
 		} else {
 			humCounter++;
 		}
-		if (mutCounter != 0) {
-			rat = (new BigDecimal(humCounter / mutCounter)).toString();
+		if (humCounter != 0) {
+			double r = new Double(mutCounter) / new Double(humCounter);
+			rat = String.valueOf(r);
 		} else {
-			rat = Integer.toString(0);
+			rat = new Double(0).toString();
 		}
 
 		if (stats != null && !stats.isEmpty()) {
@@ -154,13 +159,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkDiagDownRight(int i, int j) {
-		logger.info("@..checkDiagDownRight i " + i + " j " + j);
 		if (i + 3 >= filas || j + 3 >= columnas) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i][j], matriz[i + 1][j + 1], matriz[i + 2][j + 2], matriz[i + 3][j + 3]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkDiagDownRight i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -174,13 +178,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkDown(int i, int j) {
-		logger.info("@..checkDown i " + i + " j " + j);
 		if (i + 3 >= filas) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i][j], matriz[i + 1][j], matriz[i + 2][j], matriz[i + 3][j]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkDown i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -194,13 +197,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkDiagDownLeft(int i, int j) {
-		logger.info("@..checkDiagDownLeft i " + i + " j " + j);
 		if (i + 3 >= filas || j - 3 < 0) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i][j], matriz[i + 1][j - 1], matriz[i + 2][j - 2], matriz[i + 3][j - 3]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkDiagDownLeft i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -214,13 +216,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkRight(int i, int j) {
-		logger.info("@..checkRight i " + i + " j " + j);
 		if (j + 3 >= columnas) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i][j], matriz[i][j + 1], matriz[i][j + 2], matriz[i][j + 3]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkRight i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -234,13 +235,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkLeft(int i, int j) {
-		logger.info("@..checkLeft i " + i + " j " + j);
 		if (j - 3 < 0) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i][j - 3], matriz[i][j - 2], matriz[i][j - 1], matriz[i][j]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkLeft i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -254,13 +254,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkDiagUpRight(int i, int j) {
-		logger.info("@..checkDiagUpRight i " + i + " j " + j);
 		if (i - 3 < 0 || j + 3 >= columnas) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i - 3][j + 3], matriz[i - 2][j + 2], matriz[i - 1][j + 1], matriz[i][j]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkDiagUpRight i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -274,13 +273,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkUp(int i, int j) {
-		logger.info("@..checkUp i " + i + " j " + j);
 		if (i - 3 < 0) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i - 3][j], matriz[i - 2][j], matriz[i - 1][j], matriz[i][j]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkUp i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -294,13 +292,12 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkDiagUpLeft(int i, int j) {
-		logger.info("@..checkDiagUpLeft i " + i + " j " + j);
 		if (i - 3 < 0 || j - 3 < 0) {
 			return false;
 		} else {
 			allEqual = allEqual(matriz[i - 3][j - 3], matriz[i - 2][j - 2], matriz[i - 1][j - 1], matriz[i][j]);
 			if (allEqual) {
-				logger.info("@..FOUND MATCH");
+				logger.info("FOUND MATCH checkDiagUpLeft i " + i + " j " + j);
 			}
 			return allEqual;
 		}
@@ -330,8 +327,26 @@ public class MutantFinderService implements IMutantFinderService {
 		for (int i = 0; i < filas; i++) {
 			split = dna[i].split("");
 			for (int j = 0; j < columnas; j++) {
-				matriz[i][j] = split[j];
+				letra = split[j];
+				if (allowed(letra)) {
+					matriz[i][j] = split[j];
+				}
 			}
 		}
+	}
+
+	/**
+	 * Metodo de chequeo de caracteres validos
+	 * 
+	 * @param letra2
+	 * @return
+	 */
+	private boolean allowed(String letra2) {
+		String[] permitidos = { "A", "C", "T", "G" };
+		boolean contains = Arrays.asList(permitidos).contains(letra2);
+		if (!contains) {
+			throw new NotValidDNASequenceException();
+		}
+		return contains;
 	}
 }

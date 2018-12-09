@@ -1,4 +1,4 @@
-package com.mercadolibre.mutantfinder.excepction;
+package com.mercadolibre.mutantfinder.service;
 
 /**
  * Servicio interfaz de mutant service
