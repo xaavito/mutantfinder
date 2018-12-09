@@ -14,11 +14,15 @@ import lombok.NoArgsConstructor;
  */
 @Document(collection = "adn")
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Adn {
 	private @Id String id;
 	private String[] dna = new String[6];
 	private int isMutant;
+
+	// for deserialisation
+	public Adn() {
+	}
 
 	public Adn(String[] dna) {
 		this.setDna(dna);

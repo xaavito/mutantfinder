@@ -22,10 +22,10 @@ public class Stats {
 	private int count_human_dna;
 	private String ratio;
 
-	public Stats(int mut, int hum, String rat) {
-		this.setCount_human_dna(hum);
-		this.setCount_mutant_dna(mut);
-		this.setRatio(rat);
+	public Stats(int count_mutant_dna, int count_human_dna, String ratio) {
+		this.count_mutant_dna = count_mutant_dna;
+		this.count_human_dna = count_human_dna;
+		this.ratio = ratio;
 	}
 
 	public int getCount_mutant_dna() {

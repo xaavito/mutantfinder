@@ -84,7 +84,7 @@ public class MutantFinderService implements IMutantFinderService {
 			double r = new Double(mutCounter) / new Double(humCounter);
 			rat = String.valueOf(r);
 		} else {
-			rat = new Double(0).toString();
+			rat = new Double(0.0).toString();
 		}
 
 		if (stats != null && !stats.isEmpty()) {

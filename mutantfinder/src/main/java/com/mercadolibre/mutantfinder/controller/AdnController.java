@@ -73,7 +73,7 @@ public class AdnController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 		catch (Exception e) {
-			logger.info("NO OKSomething Went wrooong");
+			logger.info("NO OK Something Went wrooong");
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 	}
