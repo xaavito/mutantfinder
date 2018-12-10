@@ -84,7 +84,7 @@ public class AdnController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/statsTest")
+	@GetMapping("/stats")
 	Stats stats() {
 		logger.info("CALLING STATISTICS!");
 		Long mutants = repository.countByIsMutant(1);

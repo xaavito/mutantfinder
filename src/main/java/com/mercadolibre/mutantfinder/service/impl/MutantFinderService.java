@@ -1,15 +1,11 @@
 package com.mercadolibre.mutantfinder.service.impl;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mercadolibre.mutantfinder.dao.StatsRepository;
-import com.mercadolibre.mutantfinder.entity.Stats;
 import com.mercadolibre.mutantfinder.excepction.NotValidDNASequenceException;
 import com.mercadolibre.mutantfinder.service.IMutantFinderService;
 
@@ -23,9 +19,6 @@ import com.mercadolibre.mutantfinder.service.IMutantFinderService;
 public class MutantFinderService implements IMutantFinderService {
 
 	private static final Logger logger = LoggerFactory.getLogger(MutantFinderService.class);
-
-	@Autowired
-	private StatsRepository repositoryStats;
 
 	public String[][] matriz;
 	public int filas = 0;

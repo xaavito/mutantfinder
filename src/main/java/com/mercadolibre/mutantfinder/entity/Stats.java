@@ -1,21 +1,12 @@
 package com.mercadolibre.mutantfinder.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.Data;
-
 /**
- * Clase para la representacion de datos de la BD de las estadisticas, las
- * creamos una vez y las vamos actualizando
+ * Clase para la representacion de datos estadisticos
  * 
  * @author Javier Gonzalez
  *
  */
-@Document(collection = "stats")
-@Data
 public class Stats {
-	private @Id String id;
 	private int count_mutant_dna;
 	private int count_human_dna;
 	private String ratio;
