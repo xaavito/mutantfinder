@@ -112,7 +112,7 @@ public class MutantFinderServiceTest {
 	
 	@Test
 	public void statServiceWithPost() {
-		this.webClient.post().uri("/stat").exchange().expectStatus().isEqualTo(HttpStatus.NOT_FOUND);
+		this.webClient.post().uri("/stats").exchange().expectStatus().isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);
 	}
 
 }
