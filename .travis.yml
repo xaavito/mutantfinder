@@ -3,4 +3,4 @@ after_success:
   - bash <(curl -s https://codecov.io/bash) 
 env:
   global:
-    - CODECOV_TOKEN=:uuid-repo-token
+    - CODECOV_TOKEN=:3abbd1c2-baf0-47c4-8175-e8dd1dbb8e96 
