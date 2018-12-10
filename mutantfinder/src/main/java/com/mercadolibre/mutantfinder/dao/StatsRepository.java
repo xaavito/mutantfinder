@@ -12,5 +12,5 @@ import com.mercadolibre.mutantfinder.entity.Stats;
  *
  */
 public interface StatsRepository extends MongoRepository<Stats, Long> {
-
+	
 }

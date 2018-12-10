@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mercadolibre.mutantfinder.dao.AdnRepository;
 import com.mercadolibre.mutantfinder.entity.Adn;
+import com.mercadolibre.mutantfinder.entity.Stats;
 import com.mercadolibre.mutantfinder.excepction.NotValidDNASequenceException;
 import com.mercadolibre.mutantfinder.service.IMutantFinderService;
 
@@ -40,6 +41,7 @@ public class AdnController {
 
 	/**
 	 * Metodo solamente de prueba, hay que removerlo
+	 * 
 	 * @return
 	 */
 	@GetMapping("/all")
@@ -71,10 +73,32 @@ public class AdnController {
 		} catch (NotValidDNASequenceException e) {
 			logger.info("NO OK, Wrong DNA Sequence");
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.info("NO OK Something Went wrooong");
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
+	}
+
+	/**
+	 * Metodo de entrada para la obtencion de estadisticas generales
+	 * 
+	 * @return
+	 */
+	@GetMapping("/statsTest")
+	Stats stats() {
+		logger.info("CALLING STATISTICS!");
+		Long mutants = repository.countByIsMutant(1);
+
+		Long humans = repository.countByIsMutant(0);
+
+		double r;
+		if (humans == 0) {
+			r = 0.0;
+		} else {
+			r = new Double(mutants) / new Double(humans);
+		}
+
+		logger.info("resultado contando: " + r);
+		return new Stats(mutants.intValue(), humans.intValue(), String.valueOf(r));
 	}
 }

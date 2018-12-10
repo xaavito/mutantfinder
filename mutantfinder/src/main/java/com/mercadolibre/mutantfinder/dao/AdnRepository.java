@@ -10,5 +10,5 @@ import com.mercadolibre.mutantfinder.entity.Adn;
  *
  */
 public interface AdnRepository extends MongoRepository<Adn, Long>{
-
+	Long countByIsMutant(int isMutant);
 }

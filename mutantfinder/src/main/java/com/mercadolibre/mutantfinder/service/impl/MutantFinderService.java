@@ -47,7 +47,7 @@ public class MutantFinderService implements IMutantFinderService {
 			toSizeUpMatrix(dna);
 			toMatrix(dna);
 			boolean isMutant = matrixChecker();
-			updateStats(isMutant);
+			//updateStats(isMutant);
 			return isMutant;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new NotValidDNASequenceException();
@@ -148,7 +148,7 @@ public class MutantFinderService implements IMutantFinderService {
 	 * @return
 	 */
 	private boolean checkPosition(int i, int j) {
-		logger.info("@..checkPosition");
+		//logger.info("@..checkPosition");
 		return checkDiagUpLeft(i, j) || checkUp(i, j) || checkDiagUpRight(i, j) || checkLeft(i, j)
 				|| /* middle */ checkRight(i, j) || checkDiagDownLeft(i, j) || checkDown(i, j)
 				|| checkDiagDownRight(i, j);
