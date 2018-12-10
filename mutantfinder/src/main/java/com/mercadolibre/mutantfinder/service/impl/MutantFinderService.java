@@ -47,56 +47,9 @@ public class MutantFinderService implements IMutantFinderService {
 			toSizeUpMatrix(dna);
 			toMatrix(dna);
 			boolean isMutant = matrixChecker();
-			//updateStats(isMutant);
 			return isMutant;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new NotValidDNASequenceException();
-		}
-	}
-
-	/**
-	 * Actualizador de estadisticas una vez obtenido el resultado
-	 * 
-	 * @param isMutant
-	 */
-	private void updateStats(boolean isMutant) {
-		logger.info("@..updateStats");
-		int mutCounter = 0;
-		int humCounter = 0;
-		String rat = "";
-
-		Stats stat = null;
-
-		List<Stats> stats = repositoryStats.findAll();
-
-		if (stats != null && !stats.isEmpty()) {
-			stat = stats.get(0);
-			humCounter = stat.getCount_human_dna();
-			mutCounter = stat.getCount_mutant_dna();
-		}
-
-		if (isMutant) {
-			mutCounter++;
-		} else {
-			humCounter++;
-		}
-		if (humCounter != 0) {
-			double r = new Double(mutCounter) / new Double(humCounter);
-			rat = String.valueOf(r);
-		} else {
-			rat = new Double(0.0).toString();
-		}
-
-		if (stats != null && !stats.isEmpty()) {
-			stat.setCount_human_dna(humCounter);
-			stat.setCount_mutant_dna(mutCounter);
-			stat.setRatio(rat);
-			logger.info("@..updating stat");
-			repositoryStats.save(stat);
-		} else {
-			logger.info("@..new stat");
-			stat = new Stats(mutCounter, humCounter, rat);
-			repositoryStats.save(stat);
 		}
 	}
 
