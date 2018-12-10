@@ -36,7 +36,7 @@ public class MutantFinderServiceTest {
 	
 	@Test
 	public void estadisticasSinNAda() {
-		this.webClient.get().uri("/stats").exchange().expectBody().json("{\"ratio\":\"0\"}");
+		this.webClient.get().uri("/stats").exchange().expectBody().json("{\"ratio\":\"0.0\"}");
 	}
 
 	@Test

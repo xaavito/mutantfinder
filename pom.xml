@@ -108,18 +108,24 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.17</version>
 				<configuration>
-					<skipMain>true</skipMain>
-					<skip>true</skip>
-					<source>1.8</source>
-					<target>1.8</target>
+					<forkCount>1</forkCount>
+					<reuseForks>true</reuseForks>
 				</configuration>
+				<executions>
+					<execution>
+						<id>default-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-			 -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -147,15 +153,15 @@
 						<configuration>
 							<!-- Sets the path to the file which contains the execution data. -->
 
-							<dataFile>target/jacoco.exec</dataFile>
+							<dataFile>${project.build.directory}/jacoco.exec</dataFile>
 							<!-- Sets the output directory for the code coverage report. -->
-							<outputDirectory>target/jacoco-ut</outputDirectory>
+							<outputDirectory>${project.build.directory}/target/jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
 				<configuration>
 					<systemPropertyVariables>
-						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+						<jacoco-agent.destfile>${project.build.directory}/target/jacoco.exec</jacoco-agent.destfile>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
