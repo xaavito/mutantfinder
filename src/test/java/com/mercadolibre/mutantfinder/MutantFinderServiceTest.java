@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.mercadolibre.mutantfinder.dao.AdnRepository;
-import com.mercadolibre.mutantfinder.dao.StatsRepository;
 import com.mercadolibre.mutantfinder.entity.Adn;
 import com.mercadolibre.mutantfinder.entity.Stats;
 
@@ -25,8 +24,6 @@ import reactor.core.publisher.Mono;
 public class MutantFinderServiceTest {
 	
 	@Autowired
-	private StatsRepository repositoryStats;
-	@Autowired
 	private AdnRepository repositoryAdn;
 	
 	@Autowired
@@ -35,7 +32,6 @@ public class MutantFinderServiceTest {
 	@After
 	public void limpieza() throws Exception {
 		repositoryAdn.deleteAll();
-		repositoryStats.deleteAll();
 	}
 	
 	@Test
