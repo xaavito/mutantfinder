@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mutantfinder-web-app
+<appengine-web-app
 	xmlns="http://appengine.google.com/ns/1.0">
 	<version>1</version>
 	<threadsafe>true</threadsafe>
@@ -9,5 +9,5 @@
 		<property name="java.util.logging.config.file"
 			value="WEB-INF/classes/logging.properties" />
 	</system-properties>
-</mutantfinder-web-app>
+</appengine-web-app>
 
