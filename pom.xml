@@ -7,8 +7,8 @@
 	<groupId>com.mercadolibre</groupId>
 	<artifactId>mutantfinder</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<!-- GOOGLE APP ENGINE -->
-	<packaging>war</packaging>
+	<!-- GOOGLE APP ENGINE <packaging>war</packaging> -->
+	<packaging>jar</packaging>
 
 	<name>Mutant Finder</name>
 	<description>Demo Proyect for Mercado Libre</description>
@@ -74,12 +74,9 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
+			<!-- GOOGLE APP ENGINE <exclusions> <exclusion> <groupId>org.springframework.boot</groupId> 
+				<artifactId>spring-boot-starter-tomcat</artifactId> </exclusion> </exclusions> -->
+
 		</dependency>
 		<!-- BD -->
 		<dependency>
@@ -92,13 +89,15 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- GOOGLE APP ENGINE -->
+		<!-- GOOGLE APP ENGINE 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		-->
+		
 	</dependencies>
 
 	<build>
@@ -167,12 +166,15 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
-			<!-- GOOGLE APP ENGINE -->
+			<!-- GOOGLE APP ENGINE 
+			
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
 				<artifactId>appengine-maven-plugin</artifactId>
 				<version>1.3.1</version>
 			</plugin>
+			-->
+			
 		</plugins>
 	</build>
 
