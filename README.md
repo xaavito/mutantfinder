@@ -1,5 +1,3 @@
-# mutantfinder
-
 [![Build Status](https://travis-ci.org/xaavito/mutantfinder.png?branch=master)](https://travis-ci.org/xaavito/mutantfinder)
 
 # MUTANTFINDER 
