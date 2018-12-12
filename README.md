@@ -59,6 +59,6 @@ Se adjuntan los reportes de Jacoco en la carpeta coverage.
 
 # Tests
 
-Intente darle al Travis pero me costo, asi hice los tests que estan el codigo fuente y probe lo escencial.
+Conexion con Travis que ejecuta los tests y se puede ver en el Badge, Ademas adjutno esta captura de pantalla.
 
 ![testing](./tests/tests.png)
