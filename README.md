@@ -62,3 +62,15 @@ Se adjuntan los reportes de Jacoco en la carpeta coverage.
 Conexion con Travis que ejecuta los tests y se puede ver en el Badge, Ademas adjutno esta captura de pantalla.
 
 ![testing](./tests/tests.png)
+
+# Simulacion de trafico
+
+Utilize el Jmeter de acuerdo a lo que me dijeron y lei para simular condiciones adversas, en todos los casos los
+problemas se dieron por infraestructura para simular los request o el ancho de banda para pegarle.
+La verdad ando flojo con todo el tema performance pero me gusta aprender siempre.
+
+Adjunto los dos reportes que hice uno de 10000 request y uno de 100000.
+
+![10000 peticiones](./trafico/reporte2.png)
+
+![100000 peticiones](./trafico/reporte3.png)
