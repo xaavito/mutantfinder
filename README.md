@@ -13,15 +13,15 @@ de lo que estaba dando vueltas, el resultado a continuacion.
 
 # Tecnologias Utilizadas:
 
-- [Java] El core de la app
-- [SpringBoot] Api para dar manejo de aplicacion Rest, sencilla, rapida, ideal para el ejercicio en cuestion
-- [MongoDB] BD No relacional, embebida para este caso, queria darle una vuelta a las BD no relaciones y no defraudo
-- [Log4j] Logueo
-- [jUnit] Testing
-- [Lombok] Ahorro de lineas de configuracion con un par de anotations
-- [Jacoco] Tests de Cobertura, excelente
-- [Jmeter] Para hacer testing de trafico
-- [Maven] Librerias
+- Java8: El core de la app
+- SpringBoot: Api para dar manejo de aplicacion Rest, sencilla, rapida, ideal para el ejercicio en cuestion
+- MongoDB: BD No relacional, embebida para este caso, queria darle una vuelta a las BD no relaciones y no defraudo
+- Log4j: Logueo
+- jUnit: Testing
+- Lombok: Ahorro de lineas de configuracion con un par de anotations
+- Jacoco: Tests de Cobertura, excelente
+- Jmeter: Para hacer testing de trafico
+- Maven: Librerias
 
 
 # La app se hoestea en [Heroku](https://www.heroku.com/)
@@ -44,13 +44,13 @@ que despierte.
 
 2) Una vez clonado en un repo propio basta con ir a la carpeta mutantfinder y desde la consola
 
-java -jar target/mutantfinder-0.0.1-SNAPSHOT.jar
+					java -jar target/mutantfinder-0.0.1-SNAPSHOT.jar
 
 3) Acceder via explorador a:
 
-- [stats](localhost:8080/stats)
+							localhost:8080/stats
 
-- [mutant](localhost:8080/mutant)
+							localhost:8080/mutant
 
 # Cobertura
 
@@ -59,3 +59,9 @@ metodos que no utilize, la funcionalidad del sistema se cubre por encima del 80%
 Se adjuntan los reportes de Jacoco en la carpeta coverage.
 
 ![coverage](./codecoverage/jacoco-ut/jacoco.png)
+
+# Tests
+
+Intente darle al Travis pero me costo, asi hice los tests que estan el codigo fuente y probe lo escencial.
+
+![testing](./tests/tests.png)
