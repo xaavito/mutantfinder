@@ -59,3 +59,9 @@ metodos que no utilize, la funcionalidad del sistema se cubre por encima del 80%
 Se adjuntan los reportes de Jacoco en la carpeta coverage.
 
 ![coverage](./codecoverage/jacoco-ut/jacoco.png)
+
+# Tests
+
+Intente darle al Travis pero me costo, asi hice los tests que estan el codigo fuente y probe lo escencial.
+
+![testing](./tests/tests.png)
