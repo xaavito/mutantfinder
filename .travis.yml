@@ -1,3 +1,6 @@
 language: java
 before_install:
  - chmod +x mvnw
+env:
+ global:
+   - CODECOV_TOKEN=:"3abbd1c2-baf0-47c4-8175-e8dd1dbb8e96"
