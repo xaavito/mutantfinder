@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mutant
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: mutantfinder
+  namespace: mutant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mutantfinder
+  template:
+    metadata:
+      labels:
+        app: mutantfinder
+    spec:
+      containers:
+        - name: app
+          image: javiermartingonzalez/mutantfinder:v1
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mutantfinder
+  namespace: mutant
+spec:
+  selector:
+    app: mutantfinder
+  ports:
+    - port: 8088
+      targetPort: 8080
+  type: LoadBalancer          
